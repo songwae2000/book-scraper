@@ -4,7 +4,7 @@
 Build a full-stack web application that scrapes book data from Open Library and displays it with live search functionality. This project will demonstrate your proficiency with TypeScript, Puppeteer for web scraping, and React for building interactive UIs.
 
 **Estimated Time**: 4-6 hours  
-**Deadline**: 3 days from receipt
+**Deadline**: 5 days from receipt
 
 ## 🛠 Tech Stack
 - **Backend**: Node.js, Express, TypeScript, Puppeteer
