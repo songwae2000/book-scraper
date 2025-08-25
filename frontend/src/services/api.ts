@@ -31,7 +31,8 @@ api.interceptors.response.use(
         console.error('API Error:', error.response?.data || error.message);
         
         if (error.response?.status === 429) {
-            throw new Error('Rate limit exceeded. Please try again later.');
+            const rateLimitInfo = error.response.data;
+            throw new Error(`Rate limit exceeded. ${rateLimitInfo.retryAfter ? `Try again in ${rateLimitInfo.retryAfter} seconds.` : 'Please try again later.'}`);
         }
         
         if (error.response?.status >= 500) {

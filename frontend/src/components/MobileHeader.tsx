@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { BookOpen, Search, RefreshCw, ChevronDown, ArrowUpDown, Filter, Instagram, Facebook } from 'lucide-react';
 import SearchBar from './SearchBar';
+import RateLimitCountdown from './RateLimitCountdown';
 
 interface MobileHeaderProps {
     searchTerm: string;
@@ -12,6 +13,11 @@ interface MobileHeaderProps {
     onSortChange: (sortBy: string, sortOrder: 'asc' | 'desc') => void;
     selectedGenre: string;
     onGenreChange: (genre: string) => void;
+    rateLimitInfo?: {
+        remaining: number;
+        resetTime: number;
+        isLimited: boolean;
+    } | null;
 }
 
 const MobileHeader: React.FC<MobileHeaderProps> = ({
@@ -23,7 +29,8 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
     sortOrder,
     onSortChange,
     selectedGenre,
-    onGenreChange
+    onGenreChange,
+    rateLimitInfo
 }) => {
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const [isSortOpen, setIsSortOpen] = useState(false);
@@ -103,13 +110,16 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                         {/* Mobile Refresh Button */}
                         <button
                             onClick={onScrape}
-                            disabled={scraping}
+                            disabled={scraping || (rateLimitInfo?.isLimited ?? false)}
                             className="btn-primary flex items-center space-x-1 disabled:opacity-50 px-4 py-1.5"
                             title={scraping ? 'Scraping...' : 'Scrape Data'}
                         >
                             <RefreshCw className={`h-4 w-4 ${scraping ? 'animate-spin' : ''}`} />
                             <span>{scraping ? 'Scraping...' : 'Scrape'}</span>
                         </button>
+                        
+                        {/* Rate Limit Countdown */}
+                        {rateLimitInfo && <RateLimitCountdown rateLimitInfo={rateLimitInfo} />}
                         
                         {/* Scraping Progress Indicator
                         {scraping && (

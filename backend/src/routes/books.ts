@@ -6,12 +6,25 @@ import Book from '../models/Book';
 const router = express.Router();
 
 // Rate limiting for scrape endpoint
+const WINDOW_MS = 2 * 60 * 1000; // 2 minutes (reduced from 5)
+const MAX_REQUESTS = 5; // limit each IP to 5 requests per windowMs (increased from 3)
+
 const scrapeLimiter = rateLimit({
-    windowMs: 5 * 60 * 1000, // 5 minutes
-    max: 3, // limit each IP to 3 requests per windowMs
+    windowMs: WINDOW_MS,
+    max: MAX_REQUESTS,
     message: 'Too many scrape requests, please try again later.',
     standardHeaders: true,
     legacyHeaders: false,
+    handler: (req, res) => {
+        const retryAfter = Math.ceil(WINDOW_MS / 1000);
+        res.status(429).json({
+            success: false,
+            error: 'Too many scrape requests, please try again later.',
+            retryAfter,
+            windowMs: WINDOW_MS,
+            max: MAX_REQUESTS
+        });
+    }
 });
 
 // GET /api/books to get all books with pagination and sorting

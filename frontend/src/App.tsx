@@ -26,6 +26,11 @@ function App() {
     const [stats, setStats] = useState<any>(null);
     const [selectedBook, setSelectedBook] = useState<Book | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [rateLimitInfo, setRateLimitInfo] = useState<{
+        remaining: number;
+        resetTime: number;
+        isLimited: boolean;
+    } | null>(null);
 
     const debouncedSearchTerm = useDebounce(searchTerm, 300);
     const itemsPerPage = 10;
@@ -101,6 +106,7 @@ function App() {
         try {
             setScraping(true);
             setError(null);
+            setRateLimitInfo(null);
             
             const response = await booksApi.scrapeBooks();
             
@@ -118,8 +124,22 @@ function App() {
                 throw new Error(response.error || 'Failed to scrape books');
             }
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'An error occurred');
+            const errorMessage = err instanceof Error ? err.message : 'An error occurred';
+            setError(errorMessage);
             console.error('Error scraping books:', err);
+            
+            // Check if it's a rate limit error
+            if (errorMessage.includes('Rate limit exceeded')) {
+                const retryAfterMatch = errorMessage.match(/Try again in (\d+) seconds/);
+                if (retryAfterMatch) {
+                    const retryAfter = parseInt(retryAfterMatch[1]);
+                    setRateLimitInfo({
+                        remaining: 0,
+                        resetTime: Date.now() + (retryAfter * 1000),
+                        isLimited: true
+                    });
+                }
+            }
         } finally {
             setScraping(false);
         }
@@ -204,6 +224,7 @@ function App() {
                     onSortChange={handleSortChange}
                     selectedGenre={selectedGenre}
                     onGenreChange={handleGenreChange}
+                    rateLimitInfo={rateLimitInfo}
                 />
 
                 {/* Stats Bar */}
