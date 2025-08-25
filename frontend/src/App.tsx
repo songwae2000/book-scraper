@@ -284,8 +284,8 @@ function App() {
                 {/* Rate Limit Countdown */}
                 {rateLimitInfo && <RateLimitCountdown rateLimitInfo={rateLimitInfo} />}
                 
-                {/* Error Display */}
-                {error && (
+                {/* Error Display - Only show non-rate-limit errors */}
+                {error && !error.includes('Rate limit exceeded') && (
                     <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">
                         <div className="flex items-center">
                             <AlertCircle className="h-5 w-5 text-red-400 mr-2" />
