@@ -13,19 +13,21 @@ Node.js, and MongoDB.
 
 ### Main Interface
 
-![Main Interface](frontend/public/Main%20Interface.png) _The main book library
-interface showing the grid layout with book cards, search functionality, and
-sorting options._
+![Main Interface](frontend/public/main-interface.png)
+
+*The main book library interface showing the grid layout with book cards, search functionality, and sorting options.*
 
 ### Search Functionality
 
-![Search Functionality](frontend/public/Search%20Functionality.png) _Live search in
-action with debounced input, showing filtered results and search suggestions._
+![Search Functionality](frontend/public/search-functionality.png)
+
+*Live search in action with debounced input, showing filtered results and search suggestions.*
 
 ### Mobile Responsive Design
 
-![Mobile Design](frontend/public/Mobile%20Design.jpeg) _Mobile-optimized interface with
-collapsible controls, touch-friendly interactions, and responsive grid layout._
+![Mobile Design](frontend/public/mobile-design.jpeg)
+
+*Mobile-optimized interface with collapsible controls, touch-friendly interactions, and responsive grid layout.*
 
 ## Tech Stack
 
