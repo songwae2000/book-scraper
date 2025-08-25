@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Book } from '../types/books';
 import { ExternalLink, Calendar, User } from 'lucide-react';
 
@@ -8,8 +8,21 @@ interface BookCardProps {
 }
 
 const BookCard: React.FC<BookCardProps> = ({ book, onClick }) => {
+    const [imageError, setImageError] = useState(false);
+    
+    // Data URI for placeholder image (no external requests)
+    const placeholderImage = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjQwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICA8cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjNmNGY2Ii8+CiAgPHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJBcmlhbCwgc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxNCIgZmlsbD0iIzY2NzM4MyIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZHk9Ii4zZW0iPk5vIENvdmVyPC90ZXh0Pgo8L3N2Zz4K';
+    
+    // Reset image error state when book changes
+    useEffect(() => {
+        setImageError(false);
+    }, [book.id]);
+
     const handleImageError = (e: React.SyntheticEvent<HTMLImageElement>) => {
-        e.currentTarget.src = 'https://via.placeholder.com/300x400?text=No+Cover';
+        if (!imageError) {
+            setImageError(true);
+            e.currentTarget.src = placeholderImage;
+        }
     };
 
     const handleCardClick = (e: React.MouseEvent) => {
@@ -27,10 +40,11 @@ const BookCard: React.FC<BookCardProps> = ({ book, onClick }) => {
             {/* Cover Image */}
             <div className="relative mb-4">
                 <img
-                    src={book.coverUrl || 'https://via.placeholder.com/300x400?text=No+Cover'}
+                    src={imageError ? placeholderImage : (book.coverUrl || placeholderImage)}
                     alt={`Cover for ${book.title}`}
                     className="w-full h-48 object-cover rounded-lg shadow-sm"
                     onError={handleImageError}
+                    onLoad={() => setImageError(false)}
                 />
                 
             </div>
