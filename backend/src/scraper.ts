@@ -110,7 +110,7 @@ export class BookScraper {
                             // Extract image
                             const imageElement = element.querySelector('img');
                             const imageUrl = imageElement?.getAttribute('src');
-                            const fullImageUrl = imageUrl ? `http://books.toscrape.com/${imageUrl.replace('../', '')}` : 'https://via.placeholder.com/300x400?text=No+Cover';
+                            const fullImageUrl = imageUrl ? `http://books.toscrape.com/${imageUrl.replace('../', '')}` : undefined;
 
                             // Generate subjects based on rating and availability
                             const subjects = [rating, availability ? 'Available' : 'Unavailable'].filter(Boolean);
@@ -233,9 +233,9 @@ export class BookScraper {
             {
                 id: `fallback-${timestamp}-1`,
                 title: 'Sample Book Title',
-                authors: ['Sample Author'],
-                coverUrl: 'https://via.placeholder.com/300x400?text=Sample+Book',
-                yearPublished: 2024,
+                authors: ['Unknown Author'],
+                coverUrl: undefined,
+                yearPublished: undefined,
                 subjects: ['Fiction', 'Sample'],
                 openLibraryUrl: 'http://books.toscrape.com/catalogue/sample-book_1/index.html',
                 scrapedAt: new Date()
@@ -243,9 +243,9 @@ export class BookScraper {
             {
                 id: `fallback-${timestamp}-2`,
                 title: 'Another Sample Book',
-                authors: ['Another Author'],
-                coverUrl: 'https://via.placeholder.com/300x400?text=Another+Book',
-                yearPublished: 2023,
+                authors: ['Unknown Author'],
+                coverUrl: undefined,
+                yearPublished: undefined,
                 subjects: ['Mystery', 'Thriller'],
                 openLibraryUrl: 'http://books.toscrape.com/catalogue/sample-book_2/index.html',
                 scrapedAt: new Date()
