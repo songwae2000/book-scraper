@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import rateLimit from 'express-rate-limit';
+import mongoose from 'mongoose';
 import { BookScraper } from '../scraper';
 import Book from '../models/Book';
 
@@ -201,6 +202,37 @@ router.get('/stats', async (req: Request, res: Response) => {
         res.status(500).json({
             success: false,
             error: 'Failed to fetch statistics'
+        });
+    }
+});
+
+// GET /api/books/debug to get debugging information
+router.get('/debug', async (req: Request, res: Response) => {
+    try {
+        const debugInfo = {
+            environment: process.env.NODE_ENV,
+            nodeVersion: process.version,
+            platform: process.platform,
+            arch: process.arch,
+            memoryUsage: process.memoryUsage(),
+            uptime: process.uptime(),
+            database: {
+                connected: mongoose.connection.readyState === 1,
+                host: mongoose.connection.host,
+                name: mongoose.connection.name
+            },
+            timestamp: new Date().toISOString()
+        };
+
+        res.json({
+            success: true,
+            data: debugInfo
+        });
+    } catch (error) {
+        console.error('Error fetching debug info:', error);
+        res.status(500).json({
+            success: false,
+            error: 'Failed to fetch debug information'
         });
     }
 });

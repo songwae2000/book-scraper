@@ -52,14 +52,24 @@ export class BookScraper {
         await page.setViewport({ width: 1920, height: 1080 });
 
         try {
+            console.log('=== SCRAPING DEBUG INFO ===');
+            console.log('Environment:', process.env.NODE_ENV);
             console.log('Navigating to Books to Scrape...');
-            await page.goto(`${this.baseUrl}`, { 
+            console.log(`Target URL: ${this.baseUrl}`);
+            
+            const response = await page.goto(`${this.baseUrl}`, { 
                 waitUntil: 'networkidle2',
                 timeout: 30000 
             });
+            
+            console.log(`Page response status: ${response?.status()}`);
+            console.log(`Page URL after navigation: ${page.url()}`);
+            console.log(`Page title: ${await page.title()}`);
 
             // Wait for content to load
+            console.log('Waiting for product elements...');
             await page.waitForSelector('.product_pod', { timeout: 15000 });
+            console.log('Product elements found successfully');
 
             // Extract book data from multiple pages
             const allBooks: any[] = [];
@@ -137,17 +147,63 @@ export class BookScraper {
 
                 allBooks.push(...pageBooks);
                 console.log(`Found ${pageBooks.length} books on page ${pageNum}`);
+                
+                // Log detailed information about the page
+                const elementCount = await page.evaluate(() => {
+                    return document.querySelectorAll('.product_pod').length;
+                });
+                console.log(`Total .product_pod elements found: ${elementCount}`);
+                
+                // Take a screenshot for debugging in production
+                if (process.env.NODE_ENV === 'production') {
+                    try {
+                        await page.screenshot({ 
+                            path: `/tmp/scrape-debug-page-${pageNum}.png`,
+                            fullPage: true 
+                        });
+                        console.log(`Screenshot saved for page ${pageNum}`);
+                    } catch (screenshotError) {
+                        console.error('Failed to take screenshot:', screenshotError);
+                    }
+                }
             }
 
             const limitedBooks = allBooks.slice(0, 50); // Limit to 50 books
             
-            // Since Books to Scrape doesn't have author/year info, skip enrichment
+            console.log(`Total books scraped: ${allBooks.length}`);
+            console.log(`Limited to: ${limitedBooks.length} books`);
             console.log('Using placeholder author names and years...');
             
             return limitedBooks;
         } catch (error) {
+            console.error('=== SCRAPING ERROR ===');
             console.error('Error during scraping:', error);
             console.log('Scraping failed. No books retrieved.');
+            
+            // Try to get page content for debugging
+            try {
+                const pageContent = await page.content();
+                console.log('Page content length:', pageContent.length);
+                console.log('Page content preview:', pageContent.substring(0, 1000));
+                
+                // Check if we're getting a different page
+                const pageTitle = await page.title();
+                console.log('Page title on error:', pageTitle);
+                
+                // Check for common error indicators
+                if (pageContent.includes('Access Denied') || pageContent.includes('403')) {
+                    console.error('ACCESS DENIED - IP might be blocked');
+                }
+                if (pageContent.includes('404') || pageContent.includes('Not Found')) {
+                    console.error('PAGE NOT FOUND - URL might be wrong');
+                }
+                if (pageContent.includes('Cloudflare') || pageContent.includes('challenge')) {
+                    console.error('CLOUDFLARE PROTECTION - Bot detection active');
+                }
+            } catch (contentError) {
+                console.error('Could not get page content:', contentError);
+            }
+            
             return [];
         } finally {
             await page.close();
