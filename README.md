@@ -13,18 +13,18 @@ Node.js, and MongoDB.
 
 ### Main Interface
 
-![Main Interface](screenshots/main-interface.png) _The main book library
+![Main Interface](frontend/public/Main%20Interface.png) _The main book library
 interface showing the grid layout with book cards, search functionality, and
 sorting options._
 
 ### Search Functionality
 
-![Search Functionality](screenshots/search-functionality.png) _Live search in
+![Search Functionality](frontend/public/Search%20Functionality.png) _Live search in
 action with debounced input, showing filtered results and search suggestions._
 
 ### Mobile Responsive Design
 
-![Mobile Design](screenshots/mobile-design.png) _Mobile-optimized interface with
+![Mobile Design](frontend/public/Mobile%20Design.jpeg) _Mobile-optimized interface with
 collapsible controls, touch-friendly interactions, and responsive grid layout._
 
 ## Tech Stack
@@ -142,26 +142,26 @@ collapsible controls, touch-friendly interactions, and responsive grid layout._
 
 | Component                | Time Spent | Description                                               |
 | ------------------------ | ---------- | --------------------------------------------------------- |
-| **Backend Setup**        | 4 hours    | Express server, TypeScript config, basic routes           |
-| **Web Scraping**         | 6 hours    | Puppeteer implementation, error handling, data extraction |
-| **Database Integration** | 3 hours    | MongoDB setup, Mongoose models, indexing                  |
-| **Frontend Setup**       | 3 hours    | React + Vite, TypeScript, Tailwind CSS                    |
-| **Book Display**         | 5 hours    | Grid layout, cards, modal, responsive design              |
-| **Search & Filtering**   | 4 hours    | Live search, debouncing, suggestions, pagination          |
-| **Rate Limiting**        | 3 hours    | API protection, countdown timer, user feedback            |
-| **Error Handling**       | 4 hours    | Comprehensive error states, fallbacks, debugging          |
-| **Mobile Optimization**  | 5 hours    | Responsive design, touch interactions, mobile controls    |
-| **Deployment**           | 3 hours    | Vercel setup, environment configuration                   |
-| **Testing & Debugging**  | 6 hours    | Production issues, rate limit debugging, optimization     |
+| **Backend Setup**        | 0.5 hours    | Express server, TypeScript config, basic routes           |
+| **Web Scraping**         | 1 hours    | Puppeteer implementation, error handling, data extraction |
+| **Database Integration** | 0.2 hours    | MongoDB setup, Mongoose models, indexing                  |
+| **Frontend Setup**       | 0.5 hours    | React + Vite, TypeScript, Tailwind CSS                    |
+| **Book Display**         | 0.5 hours    | Grid layout, cards, modal, responsive design              |
+| **Search & Filtering**   | 1 hours    | Live search, debouncing, suggestions, pagination          |
+| **Rate Limiting**        | 0.2 hours    | API protection, countdown timer, user feedback            |
+| **Error Handling**       | 1 hours    | Comprehensive error states, fallbacks, debugging          |
+| **Mobile Optimization**  | 1 hours    | Responsive design, touch interactions, mobile controls    |
+| **Deployment**           | 0.3 hours    | Vercel setup, environment configuration                   |
+| **Testing & Debugging**  | 0.2 hours    | Production issues, rate limit debugging, optimization     |
 
-**Total Development Time**: ~46 hours
+**Total Development Time**: ~6.4 hours
 
 ## Challenges Faced & Solutions
 
 ### 1. **Web Scraping Reliability**
 
 **Challenge**: Initial scraping from Open Library was unreliable due to anti-bot
-measures and complex page structure.
+measures, request failures and complex page structure.
 
 **Solution**:
 
@@ -197,14 +197,13 @@ feedback.
 
 ### 4. **Mobile Responsiveness**
 
-**Challenge**: Complex UI needed to work seamlessly on mobile devices.
+**Challenge**: UI needed to work seamlessly on mobile devices.
 
 **Solution**:
 
 - Implemented mobile-first responsive design
 - Created collapsible controls for mobile screens
 - Added touch-friendly interactions
-- Optimized layout for different screen sizes
 
 ### 5. **Image Placeholder Issues**
 
@@ -216,7 +215,6 @@ and poor performance.
 - Created local SVG placeholder images
 - Implemented smart error handling for missing images
 - Added state management for image loading
-- Eliminated external dependencies for placeholders
 
 ### 6. **TypeScript Integration**
 
@@ -274,21 +272,21 @@ PORT=3001
 VITE_API_URL=https://book-scraper-6bci.vercel.app/api
 ```
 
-## Known Limitations & Trade-offs
+## Limitations & Trade-offs
 
 ### Limitations
 
 - **Data Source**: Limited to Books to Scrape website availability
 - **Rate Limiting**: 5 scrape requests per 2 minutes
-- **Image Quality**: Some book covers may be low resolution
-- **Author Information**: Limited author data from source website
+- **Image Quality**: Some book covers may be low resolution(Some are not available at all)
+- **Author Information**: Limited author data from source website(Publish year, Author name, etc)
 
 ### Trade-offs
 
 - **Performance vs Features**: Added complexity for better UX
 - **Development Speed vs Type Safety**: TypeScript adds overhead but improves
   reliability
-- **Free Tier vs Scalability**: Limited by free tier constraints
+- **Free Tier vs Scalability**: Limited by free tier constraints with MongoDB and vercel
 - **Simplicity vs Functionality**: More features increase complexity
 
 ## Development Commands
@@ -312,10 +310,6 @@ npm run preview      # Preview production build
 3. Make your changes
 4. Add tests if applicable
 5. Submit a pull request
-
-## License
-
-This project is licensed under the MIT License.
 
 ---
 
