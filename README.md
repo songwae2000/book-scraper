@@ -136,7 +136,7 @@ collapsible controls, touch-friendly interactions, and responsive grid layout._
   backend
 - **Developer Experience**: Unified platform, seamless Git integration and
   deployment
-- **Performance**: Global edge network for both frontend and API
+- **Performance**: Global edge network for both frontend and API.
 
 ## Time Spent on Major Components
 
