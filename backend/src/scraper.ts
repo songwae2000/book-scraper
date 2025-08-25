@@ -29,8 +29,8 @@ export class BookScraper {
                     console.log(`Retrying in ${this.retryDelay}ms...`);
                     await this.delay(this.retryDelay);
                 } else {
-                    console.log('All retry failed, using fallback data...');
-                    return this.getFallbackBooks();
+                    console.log('All retry attempts failed. No books scraped.');
+                    return [];
                 }
             } finally {
                 if (browser) {
@@ -39,7 +39,7 @@ export class BookScraper {
             }
         }
 
-        return this.getFallbackBooks();
+        return [];
     }
 
     private async performScraping(browser: Browser): Promise<Book[]> {
@@ -147,8 +147,8 @@ export class BookScraper {
             return limitedBooks;
         } catch (error) {
             console.error('Error during scraping:', error);
-            console.log('Using fallback data...');
-            return this.getFallbackBooks();
+            console.log('Scraping failed. No books retrieved.');
+            return [];
         } finally {
             await page.close();
         }
@@ -227,31 +227,7 @@ export class BookScraper {
         }
     }
 
-    private getFallbackBooks(): Book[] {
-        const timestamp = Date.now();
-        return [
-            {
-                id: `fallback-${timestamp}-1`,
-                title: 'Sample Book Title',
-                authors: ['Unknown Author'],
-                coverUrl: undefined,
-                yearPublished: undefined,
-                subjects: ['Fiction', 'Sample'],
-                openLibraryUrl: 'http://books.toscrape.com/catalogue/sample-book_1/index.html',
-                scrapedAt: new Date()
-            },
-            {
-                id: `fallback-${timestamp}-2`,
-                title: 'Another Sample Book',
-                authors: ['Unknown Author'],
-                coverUrl: undefined,
-                yearPublished: undefined,
-                subjects: ['Mystery', 'Thriller'],
-                openLibraryUrl: 'http://books.toscrape.com/catalogue/sample-book_2/index.html',
-                scrapedAt: new Date()
-            }
-        ];
-    }
+
 
     private delay(ms: number): Promise<void> {
         return new Promise(resolve => setTimeout(resolve, ms));
