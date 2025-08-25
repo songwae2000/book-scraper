@@ -1,8 +1,10 @@
 # Dependencies
 node_modules/
+**/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+pnpm-debug.log*
 
 # Environment variables
 .env
@@ -10,15 +12,22 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.env.example
 
 # Build outputs
 dist/
 build/
+**/dist/
+**/build/
 *.tsbuildinfo
 
 # Logs
 logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
 
 # Runtime data
 pids
@@ -29,8 +38,6 @@ pids
 # Coverage directory used by tools like istanbul
 coverage/
 *.lcov
-
-# nyc test coverage
 .nyc_output
 
 # Dependency directories
@@ -105,3 +112,38 @@ Thumbs.db
 
 # Vite
 .vite/
+
+# TypeScript
+*.tsbuildinfo
+
+# Testing
+coverage/
+.nyc_output
+
+# Production
+/build
+
+# Misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local env files
+.env*.local
+
+# Vercel
+.vercel
+
+# Screenshots (if you want to exclude them)
+# screenshots/
+
+# Markdown linting
+.prettierignore
+.markdownlintignore

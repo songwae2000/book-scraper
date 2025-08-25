@@ -1,7 +1,7 @@
 {
   "name": "book-scraper",
   "version": "1.0.0",
-      "description": "A full-stack web application that scrapes book data from Books to Scrape and displays it with live search functionality",
+  "description": "A full-stack web application that scrapes book data from Books to Scrape and displays it with live search functionality",
   "private": true,
   "scripts": {
     "setup": "./setup.sh",
@@ -15,7 +15,9 @@
     "build:frontend": "cd frontend && npm run build",
     "build": "npm run build:backend && npm run build:frontend",
     "start:backend": "cd backend && npm start",
-    "start:frontend": "cd frontend && npm run preview"
+    "start:frontend": "cd frontend && npm run preview",
+    "format": "prettier --write '**/*.md' --ignore-path .prettierignore",
+    "lint:md": "markdownlint '**/*.md' --ignore-path .markdownlintignore"
   },
   "keywords": [
     "web-scraping",
@@ -29,10 +31,22 @@
   "author": "Your Name",
   "license": "MIT",
   "devDependencies": {
-    "concurrently": "^8.2.0"
+    "concurrently": "^8.2.0",
+    "markdownlint-cli": "^0.45.0",
+    "prettier": "^3.6.2"
   },
   "engines": {
     "node": ">=16.0.0",
     "npm": ">=8.0.0"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/songwae2000/book-discovery-test.git"
+  },
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/songwae2000/book-discovery-test/issues"
+  },
+  "homepage": "https://github.com/songwae2000/book-discovery-test#readme"
 }
