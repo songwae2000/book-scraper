@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Book } from './types/books';
 import MobileHeader from './components/MobileHeader';
 import BookGrid from './components/BookGrid';
@@ -280,7 +280,7 @@ function App() {
                                 </div>
                             </div>
                         )}
-                        <LoadingSkeleton count={8} type={scraping ? 'scraping' : 'books'} />
+                        <LoadingSkeleton count={8} />
                     </div>
                 ) : (
                     <BookGrid books={books} onBookClick={handleBookClick} />

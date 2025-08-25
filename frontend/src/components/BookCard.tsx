@@ -17,9 +17,7 @@ const BookCard: React.FC<BookCardProps> = ({ book, onClick }) => {
         onClick();
     };
 
-    const handleExternalLinkClick = (e: React.MouseEvent) => {
-        e.stopPropagation();
-    };
+
 
     return (
         <div 
@@ -91,7 +89,7 @@ const BookCard: React.FC<BookCardProps> = ({ book, onClick }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                         title="View on Books to Scrape"
-                        // onClick={handleExternalLinkClick}
+
                         className="p-1 rounded-md hover:bg-gray-100 group-hover:hover:bg-gray-700 transition-colors duration-200"
                     >
                         <ExternalLink className="h-4 w-4 text-gray-600 group-hover:text-gray-400" />

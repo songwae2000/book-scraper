@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, BookOpen, Search, RefreshCw, ChevronDown, ArrowUpDown, Filter, Instagram, Facebook } from 'lucide-react';
+import { BookOpen, Search, RefreshCw, ChevronDown, ArrowUpDown, Filter, Instagram, Facebook } from 'lucide-react';
 import SearchBar from './SearchBar';
 
 interface MobileHeaderProps {
