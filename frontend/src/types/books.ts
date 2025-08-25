@@ -13,6 +13,9 @@ export interface BookApiResponse {
     success: boolean;
     data: Book[];
     total: number;
+    page?: number;
+    limit?: number;
+    totalPages?: number;
     error?: string;
 }
 
@@ -21,6 +24,9 @@ export interface SearchApiResponse {
     data: Book[];
     query: string;
     total: number;
+    page?: number;
+    limit?: number;
+    totalPages?: number;
     error?: string;
 }
 
