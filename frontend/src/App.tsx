@@ -9,6 +9,7 @@ import LoadingSkeleton from './components/LoadingSkeleton';
 import { useDebounce } from './hooks/useDebounce';
 import { booksApi, BooksParams } from './services/api';
 import { AlertCircle, RefreshCw } from 'lucide-react';
+import RateLimitCountdown from './components/RateLimitCountdown';
 
 function App() {
     // State management
@@ -280,6 +281,9 @@ function App() {
 
             {/* Main Content */}
             <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                {/* Rate Limit Countdown */}
+                {rateLimitInfo && <RateLimitCountdown rateLimitInfo={rateLimitInfo} />}
+                
                 {/* Error Display */}
                 {error && (
                     <div className="mb-6 bg-red-50 border border-red-200 rounded-lg p-4">

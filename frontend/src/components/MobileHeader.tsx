@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { BookOpen, Search, RefreshCw, ChevronDown, ArrowUpDown, Filter, Instagram, Facebook } from 'lucide-react';
 import SearchBar from './SearchBar';
-import RateLimitCountdown from './RateLimitCountdown';
 
 interface MobileHeaderProps {
     searchTerm: string;
@@ -118,8 +117,7 @@ const MobileHeader: React.FC<MobileHeaderProps> = ({
                             <span>{scraping ? 'Scraping...' : 'Scrape'}</span>
                         </button>
                         
-                        {/* Rate Limit Countdown */}
-                        {rateLimitInfo && <RateLimitCountdown rateLimitInfo={rateLimitInfo} />}
+
                         
                         {/* Scraping Progress Indicator
                         {scraping && (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Clock, AlertTriangle } from 'lucide-react';
+import { AlertTriangle } from 'lucide-react';
 
 interface RateLimitCountdownProps {
     rateLimitInfo: {
@@ -42,11 +42,7 @@ const RateLimitCountdown: React.FC<RateLimitCountdownProps> = ({ rateLimitInfo }
         return (
             <div className="flex items-center gap-2 px-3 py-2 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
                 <AlertTriangle className="h-4 w-4" />
-                <span>Rate limit exceeded</span>
-                <div className="flex items-center gap-1">
-                    <Clock className="h-3 w-3" />
-                    <span>Try again in {formatTime(timeLeft)}</span>
-                </div>
+                <span>Rate limit exceeded. Try again in {formatTime(timeLeft)}</span>
             </div>
         );
     }
